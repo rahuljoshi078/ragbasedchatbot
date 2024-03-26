@@ -3,3 +3,4 @@ llama-index-llms-gemini
 llama-index-vector-stores-pinecone
 llama-index-embeddings-gemini
 llama-index-readers-file
+Flask
