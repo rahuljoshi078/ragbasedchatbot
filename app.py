@@ -60,24 +60,26 @@ def ragchatbot_api():
     Settings.chunk_size = 512
 
     #Generate and store embeddings in the Pinecone index
-    #Using the VectorStoreIndex class, LlamaIndex takes care of sending the data chunks to the embedding model and then handles storing the vectorized data into the Pinecone index.
-    # store embeddings in pinecone index
     vector_store = PineconeVectorStore(pinecone_index=pinecone_index)
 
     # Create a StorageContext using the created PineconeVectorStore
     storage_context = StorageContext.from_defaults(
         vector_store=vector_store
     )
+    
+    #Using the VectorStoreIndex class, LlamaIndex takes care of sending the data chunks to the embedding model 
+    #and then handles storing the vectorized data into the Pinecone index.
+    #store embeddings in pinecone index
 
     # Use the chunks of documents and the storage_context to create the index
     index = VectorStoreIndex.from_documents(
-        documents, 
+        documents,
         storage_context=storage_context
     )
 
 
     #Query Pinecone vector store
-    #Now the contents of the URL are converted to embeddings and stored in the Pinecone index.
+    #Now the contents of the pdf are converted to embeddings and stored in the Pinecone index.
     #Let's perform a similarity search by querying the index
     # query pinecone index for similar embeddings
     query_engine = index.as_query_engine()
